@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UsuarioController : MonoBehaviour {
+	public Usuario _usuario;
 
 	// Use this for initialization
 	void Start () {
