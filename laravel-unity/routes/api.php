@@ -17,3 +17,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 Route::post('/cadastro','CadastroLoginController@cadastro');
+Route::post('/login','CadastroLoginController@login');

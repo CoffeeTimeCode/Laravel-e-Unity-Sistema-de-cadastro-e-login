@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Validator;
 
+use Auth;
+
 class CadastroLoginController extends Controller
 {
     public function cadastro(Request $request)
@@ -29,8 +31,21 @@ class CadastroLoginController extends Controller
       }
     }
 
-    public function login()
+    public function login(Request $request)
     {
-      # code...
+      $validator = Validator::make($request->all(),[
+        'email'=>'required|email',
+        'password'=>'required|min:6'
+      ]);
+
+      if($validator->fails()){
+        return response()->json(['status'=>false,'errors'=>$validator->errors()->all()]);
+      }else{
+        if(Auth::attempt($request->all())){
+          return response()->json(['status'=>true,'user'=>Auth::user()]);
+        }else{
+          return response()->json(['status'=>false,'errors'=>['Senha ou email incorretos.']]);
+        }
+      }
     }
 }
